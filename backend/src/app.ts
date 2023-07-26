@@ -5,6 +5,7 @@ import morgan from "morgan";
 import cors from "cors";
 import connectDb from "./utils/connectDb";
 import router from "./routes";
+import deserializeUser from "./middleware/deserializeUser";
 
 const app = express();
 const port = env.PORT;
@@ -16,6 +17,7 @@ app.use(
 );
 app.use(morgan("dev"));
 app.use(express.json());
+app.use(deserializeUser);
 app.use(router);
 
 app.listen(port, () => {
