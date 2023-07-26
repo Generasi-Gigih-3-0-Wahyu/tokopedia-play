@@ -25,7 +25,6 @@ export function verifyJwt<T>(
     return decoded;
   } catch (e) {
     console.log(e);
-
     return null;
   }
 }

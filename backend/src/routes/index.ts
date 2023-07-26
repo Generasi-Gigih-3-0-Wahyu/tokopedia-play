@@ -3,6 +3,7 @@ import createHttpError, { isHttpError } from "http-errors";
 import { error } from "../utils/baseResponse";
 import user from "./user.route";
 import session from "./session.route"
+import comment from "./comment.route"
 
 const router = express.Router();
 const baseURL = "/api/v1";
@@ -16,6 +17,7 @@ router.get(baseURL, (_req: Request, res: Response) => {
 
 router.use(`${baseURL}/users`, user);
 router.use(`${baseURL}/session`, session);
+router.use(`${baseURL}/comments`, comment);
 
 /**
  * *Callback for 404 error handling
