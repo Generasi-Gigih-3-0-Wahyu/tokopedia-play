@@ -10,6 +10,6 @@ import requireUser from "../middleware/requireUser";
 const router = express.Router();
 
 router.post("/", validateResource(createUserSchema), createUserController);
-router.get("/", requireUser, getCurrentUserController);
+router.get("/me", requireUser, getCurrentUserController);
 
 export default router;
