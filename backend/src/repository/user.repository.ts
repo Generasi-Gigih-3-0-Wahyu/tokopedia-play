@@ -1,12 +1,7 @@
 import UserModel, { User } from "../models/user.model";
 
 export function createUserRepository(input: Partial<User>) {
-  try {
-    const user = UserModel.create(input);
-    return user;
-  } catch (err: any) {
-    throw new Error(err);
-  }
+  return UserModel.create(input);
 }
 
 export function findUserById(id: string) {
