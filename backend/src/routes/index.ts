@@ -5,6 +5,7 @@ import user from "./user.route";
 import session from "./session.route";
 import comment from "./comment.route";
 import product from "./product.route";
+import video from "./video.route";
 
 const router = express.Router();
 const baseURL = "/api/v1";
@@ -20,6 +21,7 @@ router.use(`${baseURL}/users`, user);
 router.use(`${baseURL}/session`, session);
 router.use(`${baseURL}/comments`, comment);
 router.use(`${baseURL}/products`, product);
+router.use(`${baseURL}/videos`, video);
 
 /**
  * *Callback for 404 error handling
