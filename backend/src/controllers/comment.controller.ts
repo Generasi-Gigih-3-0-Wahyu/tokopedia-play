@@ -20,7 +20,6 @@ export async function createCommentController(
       .status(201)
       .json(success("Successfully created comment", comment, res.statusCode));
   } catch (err: any) {
-    console.log(err);
     next(err);
   }
 }

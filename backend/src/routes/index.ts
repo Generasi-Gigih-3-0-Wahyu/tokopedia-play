@@ -42,9 +42,6 @@ router.use(
       console.error(err);
       statusCode = err.status;
       errorMessage = err.message;
-      if (err.code === 1100) {
-        errorMessage = "Account already exists";
-      }
     }
     res.status(statusCode).json(error(errorMessage, statusCode));
   }

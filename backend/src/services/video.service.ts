@@ -17,7 +17,6 @@ export async function createVideo(input: {
   if (input.products) {
     products = await findProdutsByIds(input.products);
   }
-  console.log(products);
   try {
     const video = await createVideoRepository({
       thumbnailUrl: input.thumbnailUrl,
@@ -39,9 +38,12 @@ export async function addProductToVideo(productIds: string[], videoId: string) {
 
   try {
     const video = await updateVideoProduct(videoId, products);
+    if (!video) {
+      throw new ErrorBase({ statusCode: 404, message: "Video not found" });
+    }
     return video;
   } catch (err: any) {
-    throw new Error(err);
+    throw new ErrorBase({ statusCode: err.statusCode, message: err.message });
   }
 }
 

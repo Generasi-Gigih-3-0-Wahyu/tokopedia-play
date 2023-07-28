@@ -28,8 +28,6 @@ export async function createVideoController(
       .status(201)
       .json(success("Successfully created video", video, res.statusCode));
   } catch (err: any) {
-    console.log(err);
-
     next(err);
   }
 }
@@ -107,9 +105,9 @@ export async function getProductsByVideoIdController(
     }
     return res
       .status(200)
-      .json(success("Successfully retrieved video", video.products, res.statusCode));
+      .json(success("Successfully retrieved products", video.products, res.statusCode));
   } catch (err: any) {
-    next(createHttpError(500, "Internal Server Error"));
+    next(createHttpError(err.statusCode, err.message));
   }
 }
 
@@ -128,9 +126,9 @@ export async function getCommentsByVideoIdController(
     return res
       .status(200)
       .json(
-        success("Successfully retrieved video", video.comments, res.statusCode)
+        success("Successfully retrieved comments", video.comments, res.statusCode)
       );
   } catch (err: any) {
-    next(createHttpError(500, "Internal Server Error"));
+    next(createHttpError(err.statusCode, err.message));
   }
 }

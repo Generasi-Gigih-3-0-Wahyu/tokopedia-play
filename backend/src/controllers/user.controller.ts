@@ -18,10 +18,10 @@ export async function createUserController(
       .status(201)
       .json(success("Successfully Created User", user, res.statusCode));
   } catch (err: any) {
-    if (err.code === 11000) {
-      next(createHttpError(409, "Account already exists"));
+    if (err.statusCode === 11000) {
+      return next(createHttpError(409, "Account already exists"));
     }
-    next(err);
+    return next(err);
   }
 }
 
