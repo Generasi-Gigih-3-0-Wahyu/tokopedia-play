@@ -38,10 +38,12 @@ npm install
 ```
 
 ## Running
-Before running the application, make sure you already copy .env.example .env file and fill the environment variables.
+Before running the application, make sure you already copy .env.example to .env file and fill the environment variables.
 ```sh
 npm run dev
 ```
+
+If you want to test it on Postman or Insomnia, you can access it on http://localhost:5002/api/v1 then followed by the API structure below.
 
 ## Database Structure
 Since I'm using MongoDB, I tried to rationalize the database structure like this:
