@@ -1,8 +1,7 @@
 import { findProdutsByIds } from "../repository/product.repository";
 import {
   createVideoRepository,
-  findVideoById,
-  findVideoByIdAndUpdate,
+  updateVideoProduct,
 } from "../repository/video.repository";
 import { ErrorBase } from "../utils/error";
 
@@ -34,13 +33,8 @@ export async function addProductToVideo(productIds: string[], videoId: string) {
     throw new ErrorBase({ statusCode: 404, message: "Product not found" });
   }
 
-  const video = await findVideoById(videoId);
-  if (!video) {
-    throw new ErrorBase({ statusCode: 404, message: "Video not found" });
-  }
-
   try {
-    const video = await findVideoByIdAndUpdate(videoId, products);
+    const video = await updateVideoProduct(videoId, products);
     return video;
   } catch (err: any) {
     throw new Error(err);

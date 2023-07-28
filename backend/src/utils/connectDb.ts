@@ -15,4 +15,11 @@ async function connectDb() {
   }
 }
 
+const conn = mongoose.connection;
+
+conn.on("error", () => log.error.bind(console, "Connection error"));
+conn.once("open", () => log.info("Connection to Database is Successful"));
+
+export { conn };
+
 export default connectDb;

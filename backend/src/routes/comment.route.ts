@@ -7,7 +7,7 @@ import { createCommentController } from "../controllers/comment.controller";
 const router = express.Router();
 
 router.post(
-  "/",
+  "/:videoId",
   [requireUser, validateResource(createCommentSchema)],
   createCommentController
 );
