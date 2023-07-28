@@ -1,20 +1,25 @@
 import { DocumentType } from "@typegoose/typegoose";
 import { VideoModel } from "../models";
 import { Product } from "../models/product.model";
-import { ClientSession } from "mongoose";
+import { ClientSession, PopulateOptions } from "mongoose";
 import { Comment } from "../models/comment.model";
 import { ErrorBase } from "../utils/error";
 
 export async function createVideoRepository(input: {
   thumbnailUrl: string;
   url: string;
+  title: string;
   products?: DocumentType<Product>[];
 }) {
   return VideoModel.create(input);
 }
 
-export async function findVideoById(id: string) {
-  return VideoModel.findById(id);
+export async function findVideoById(
+  id: string,
+  populate: PopulateOptions | (string | PopulateOptions)[],
+  select: Record<string, number | boolean | object>
+) {
+  return VideoModel.findById(id).populate(populate).select(select);
 }
 
 export async function updateVideoComment(
@@ -47,4 +52,8 @@ export async function updateVideoProduct(
   } catch (err: any) {
     throw new Error(err);
   }
+}
+
+export async function findVideos() {
+  return VideoModel.find().select({ __v: 0, comments: 0, products: 0 });
 }

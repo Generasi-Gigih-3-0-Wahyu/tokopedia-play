@@ -3,6 +3,9 @@ import { Product } from "./product.model";
 import { Comment } from "./comment.model";
 
 export class Video {
+  @prop({required: true})
+  title: string;
+
   @prop({ required: true })
   thumbnailUrl: string;
 
