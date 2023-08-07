@@ -4,11 +4,12 @@ import env from "./validateEnv";
 import log from "./logger";
 
 async function connectDb() {
-  log.info("db string",env.MONGO_CONNECTION_STRING);
-  log.info("Port", env.PORT);
   const port = env.PORT;
+  const connectionString = env.MONGO_CONNECTION_STRING;
   try {
-    await mongoose.connect(env.MONGO_CONNECTION_STRING);
+    log.info("db string",env.MONGO_CONNECTION_STRING);
+    log.info("Port", port);
+    await mongoose.connect(connectionString);
     log.info("Connected to MongoDB");
     log.info(`App started at http://localhost:${port}/api/v1/`);
   } catch (err: any) {
