@@ -7,8 +7,8 @@ async function connectDb() {
   const port = env.PORT;
   const connectionString = env.MONGO_CONNECTION_STRING;
   try {
-    log.info("db string",env.MONGO_CONNECTION_STRING);
-    log.info("Port", port);
+    console.log("db string",env.MONGO_CONNECTION_STRING);
+    console.log("Port", port);
     await mongoose.connect(connectionString);
     log.info("Connected to MongoDB");
     log.info(`App started at http://localhost:${port}/api/v1/`);
