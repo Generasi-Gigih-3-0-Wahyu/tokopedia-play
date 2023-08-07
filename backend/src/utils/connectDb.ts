@@ -5,6 +5,7 @@ import log from "./logger";
 
 async function connectDb() {
   log.info("db string",env.MONGO_CONNECTION_STRING);
+  log.info("Port", env.PORT);
   const port = env.PORT;
   try {
     await mongoose.connect(env.MONGO_CONNECTION_STRING);
