@@ -4,6 +4,7 @@ import env from "./validateEnv";
 import log from "./logger";
 
 async function connectDb() {
+  log.info("db string",env.MONGO_CONNECTION_STRING);
   const port = env.PORT;
   try {
     await mongoose.connect(env.MONGO_CONNECTION_STRING);
