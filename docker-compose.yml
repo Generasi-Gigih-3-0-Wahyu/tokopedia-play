@@ -1,0 +1,45 @@
+version: "3"
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: tokopedia-play-ui
+    command: npm run dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/:/usr/src/app
+      - /usr/src/app/node_modules
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+    networks:
+      - mern-network
+  
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: tokopedia-play-api
+    command: /usr/src/app/node_modules/.bin/nodemon src/app.ts
+    restart: always
+    ports:
+      - "5002:5002"
+    volumes:
+      - ./backend/:/usr/src/app
+      - /usr/src/app/node_modules
+    env_file: ./backend/.env
+    networks:
+      - mern-network
+
+networks:
+  mern-network:
+    driver: bridge
+
+volumes:
+    node_modules:
+    web-root:
+      driver: local
