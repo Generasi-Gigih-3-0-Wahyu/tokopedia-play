@@ -24,7 +24,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: tokopedia-play-api
-    command: /usr/src/app/node_modules/.bin/nodemon src/app.ts
+    command: npm start
     restart: always
     ports:
       - "5002:5002"
