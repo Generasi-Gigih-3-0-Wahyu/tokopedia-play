@@ -80,7 +80,7 @@ function App() {
       <main
         className={cn(
           videos.length > 0
-            ? 'grid grid-cols-6'
+            ? 'grid grid-cols-6 gap-4'
             : 'flex justify-center items-center h-[70vh]', 'mt-4'
         )}
       >

@@ -3,10 +3,10 @@ import { EyeIcon } from 'lucide-react';
 import { FC } from 'react';
 import Icon from './Icon';
 
-const VideoCard: FC<VideoShort> = ({ _id, thumbnailUrl, title, url }) => {
+const VideoCard: FC<VideoShort> = ({ _id, thumbnailUrl, title, url, user }) => {
   return (
     <div className="col-span-1 relative h-96 rounded-lg">
-      <div className="flex flex-col justify-between z-10 absolute h-full">
+      <div className="flex flex-col justify-between z-10 absolute h-full w-full">
         <div className="flex items-center space-x-2 p-2">
           <div className="bg-red-500 uppercase text-white rounded-sm font-semibold text-xs px-1 py-0.5">
             Live
@@ -25,7 +25,7 @@ const VideoCard: FC<VideoShort> = ({ _id, thumbnailUrl, title, url }) => {
             <span>Kejar Diskon</span>
           </div>
           <h3 className='font-semibold'>{title}</h3>
-          <p className='text-slate-300 font-semibold text-sm'>Whauzan</p>
+          <p className='text-slate-300 font-semibold text-sm'>{user.name}</p>
         </div>
       </div>
       <div className="absolute z-0">
