@@ -1,6 +1,7 @@
 import { Ref, prop } from "@typegoose/typegoose";
 import { Product } from "./product.model";
 import { Comment } from "./comment.model";
+import { User } from "./user.model";
 
 export class Video {
   @prop({required: true})
@@ -17,4 +18,7 @@ export class Video {
 
   @prop({ ref: () => Product, default: [] })
   products: Ref<Product>[];
+
+  @prop({ref: () => User})
+  user: Ref<User>;
 }
