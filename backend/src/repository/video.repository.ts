@@ -10,6 +10,7 @@ export async function createVideoRepository(input: {
   url: string;
   title: string;
   products?: DocumentType<Product>[];
+  user: string;
 }) {
   return VideoModel.create(input);
 }
@@ -55,5 +56,7 @@ export async function updateVideoProduct(
 }
 
 export async function findVideos() {
-  return VideoModel.find().select({ __v: 0, comments: 0, products: 0 });
+  return VideoModel.find()
+    .populate({ path: "user", select: { name: 1 } })
+    .select({ __v: 0, comments: 0, products: 0 });
 }

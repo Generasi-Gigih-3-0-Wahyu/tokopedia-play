@@ -13,10 +13,11 @@ import {
   getVideoByIdController,
   getVideosController,
 } from "../controllers/video.controller";
+import requireUser from "../middleware/requireUser";
 
 const router = express.Router();
 
-router.post("/", validateResource(createVideoSchema), createVideoController);
+router.post("/", [requireUser, validateResource(createVideoSchema)], createVideoController);
 router.get("/", getVideosController);
 router.get(
   "/:videoId",

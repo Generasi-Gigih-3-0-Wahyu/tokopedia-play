@@ -23,7 +23,7 @@ export async function createVideoController(
 ) {
   const body = req.body;
   try {
-    const video = await createVideo(body);
+    const video = await createVideo({ userId: res.locals.user._id, ...body });
     return res
       .status(201)
       .json(success("Successfully created video", video, res.statusCode));

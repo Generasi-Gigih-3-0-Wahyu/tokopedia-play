@@ -12,17 +12,20 @@ export async function createVideo(input: {
   url: string;
   title: string;
   products?: string[];
+  userId: string
 }) {
   let products;
   if (input.products) {
     products = await findProdutsByIds(input.products);
   }
+
   try {
     const video = await createVideoRepository({
       thumbnailUrl: input.thumbnailUrl,
       url: input.url,
       title: input.title,
       products: products,
+      user: input.userId
     });
     return video;
   } catch (err: any) {
