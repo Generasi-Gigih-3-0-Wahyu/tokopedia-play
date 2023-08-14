@@ -1,14 +1,15 @@
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';
-import { EyeIcon, EyeOffIcon } from 'lucide-react';
+import { EyeIcon, EyeOffIcon, LucideIcon } from 'lucide-react';
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-}
+    Icon?: LucideIcon
+  }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+  ({ className, type, Icon, ...props }, ref) => {
     const [showPassword, setShowPassword] = React.useState<boolean>(false);
     const togglePasswordVisibility = () => {
       setShowPassword(!showPassword);
@@ -38,6 +39,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               <EyeOffIcon className="h-4 w-4 text-gray-500" />
             )}
           </button>
+        )}
+        {Icon && (
+          <Icon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
         )}
       </div>
     );
