@@ -5,7 +5,6 @@ import {
   signRefreshedAccessToken,
   signToken,
 } from "../services/session.service";
-import { get } from "lodash";
 import createHttpError from "http-errors";
 
 export async function createSessionController(
@@ -16,16 +15,14 @@ export async function createSessionController(
   const { email, password } = req.body;
 
   try {
-    const { accessToken, refreshToken } = await signToken(email, password);
+    const { accessToken, refreshToken, respUser } = await signToken(email, password);
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000,
+    });
     return res
       .status(201)
-      .json(
-        success(
-          "Successfully signed",
-          { accessToken, refreshToken },
-          res.statusCode
-        )
-      );
+      .json(success("Successfully signed", { respUser, accessToken }, res.statusCode));
   } catch (err: any) {
     next(createHttpError(err.statusCode, err.message));
   }
@@ -36,16 +33,24 @@ export async function refreshAccessTokenController(
   res: Response,
   next: NextFunction
 ) {
-  const refreshToken = get(req, "headers.x-refresh")?.toString();
+  const cookie = req.cookies;
 
-  if (!refreshToken) {
-    return next(createHttpError(401, "Could not refresh access token"));
-  }
+  if (!cookie?.refreshToken) {
+    return next(createHttpError(401, "You have no access token"));
+  }  
 
   try {
-    const accessToken = await signRefreshedAccessToken(refreshToken)
-    return res.status(201).json(success("Successfully refreshed access token", {accessToken: accessToken}, res.statusCode));
+    const accessToken = await signRefreshedAccessToken(cookie?.refreshToken);
+    return res
+      .status(201)
+      .json(
+        success(
+          "Successfully refreshed access token",
+          { accessToken: accessToken },
+          res.statusCode
+        )
+      );
   } catch (err: any) {
-    next(createHttpError(err.statusCode, err.message))
+    next(createHttpError(err.statusCode, err.message));
   }
 }

@@ -26,7 +26,7 @@ export async function signRefreshToken(userId: string): Promise<string> {
     },
     "REFRESH_PRIVATE_KEY",
     {
-      expiresIn: "1y",
+      expiresIn: "1d",
     }
   );
   return refreshToken;
@@ -35,7 +35,7 @@ export async function signRefreshToken(userId: string): Promise<string> {
 export async function signToken(
   email: string,
   password: string
-): Promise<{ accessToken: string; refreshToken: string }> {
+): Promise<{ accessToken: string; refreshToken: string, respUser: Partial<DocumentType<User>> }> {
   const user = await findUserByEmail(email);
   if (!user) {
     throw new ErrorBase({ statusCode: 401, message: "Invalid credentials" });
@@ -52,7 +52,9 @@ export async function signToken(
   // sign a refresh token
   const refreshToken = await signRefreshToken(user.id);
 
-  return { accessToken, refreshToken };
+  const respUser = omit(user.toJSON(), privateFields);
+
+  return { accessToken, refreshToken, respUser };
 }
 
 export async function signRefreshedAccessToken(refreshToken: string) : Promise<string> {
