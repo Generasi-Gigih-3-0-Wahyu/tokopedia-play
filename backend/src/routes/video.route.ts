@@ -17,7 +17,11 @@ import requireUser from "../middleware/requireUser";
 
 const router = express.Router();
 
-router.post("/", [requireUser, validateResource(createVideoSchema)], createVideoController);
+router.post(
+  "/",
+  [requireUser, validateResource(createVideoSchema)],
+  createVideoController
+);
 router.get("/", getVideosController);
 router.get(
   "/:videoId",
@@ -34,6 +38,10 @@ router.get(
   validateResource(getVideoByIdSchema),
   getProductsByVideoIdController
 );
-router.get("/:videoId/comments", validateResource(getVideoByIdSchema), getCommentsByVideoIdController);
+router.get(
+  "/:videoId/comments",
+  validateResource(getVideoByIdSchema),
+  getCommentsByVideoIdController
+);
 
 export default router;
