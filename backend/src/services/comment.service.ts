@@ -5,15 +5,15 @@ import { conn } from "../utils/connectDb";
 
 export async function createComment(input: Partial<Comment>, videoId: string) {
   const session = await conn.startSession();
+  session.startTransaction({
+    readConcern: { level: "snapshot" },
+    writeConcern: { w: "majority" },
+  });
   try {
-    let updatedComment;
-    await session.withTransaction(async () => {
-      const comment = await createCommentRepository(input, session);
-      await updateVideoComment(videoId, comment, session);
-      updatedComment = comment
-    })
+    const comment = await createCommentRepository(input, session);
+    await updateVideoComment(videoId, comment, session);
     await session.commitTransaction();
-    return updatedComment
+    return comment;
   } catch (err: any) {
     await session.abortTransaction();
     throw new Error(err);

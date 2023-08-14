@@ -13,6 +13,6 @@ router.post(
   validateResource(createSessionSchema),
   createSessionController
 );
-router.post("/refresh", refreshAccessTokenController);
+router.get("/refresh", refreshAccessTokenController);
 
 export default router;
