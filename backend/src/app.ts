@@ -14,7 +14,7 @@ const port = env.PORT;
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:3000", "https://tokopedia-play.surge.sh/"],
+    origin: ["http://localhost:3000", "https://tokopedia-play.surge.sh"],
   })
 );
 app.use(morgan("dev"));
