@@ -10,7 +10,10 @@ export async function createProductController(
 ) {
   const body = req.body;
   try {
-    const product = await createProduct(body);
+    const product = await createProduct({
+      user: res.locals.user._id,
+      ...body,
+    });
     return res
       .status(201)
       .json(success("Successfully created product", product, res.statusCode));
