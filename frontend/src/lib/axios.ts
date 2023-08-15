@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:5002/api/v1';
+const BASE_URL = 'https://tokopedia-play-backend.up.railway.app/api/v1';
 
 export default axios.create({
   baseURL: BASE_URL,
