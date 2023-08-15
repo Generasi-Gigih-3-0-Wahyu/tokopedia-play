@@ -57,8 +57,7 @@ const VideoDetail = () => {
   };
 
   const onClick = () => {
-    console.log(auth);
-    if (auth.accessToken === "") {
+    if (auth.accessToken === '') {
       toast({
         variant: 'destructive',
         title: 'You are not logged in',
