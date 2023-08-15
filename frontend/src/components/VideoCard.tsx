@@ -4,7 +4,7 @@ import { FC } from 'react';
 import Icon from './Icon';
 import { Link } from 'react-router-dom';
 
-const VideoCard: FC<VideoShortProps> = ({ _id, thumbnailUrl, title, url, user }) => {
+const VideoCard: FC<VideoShortProps> = ({ _id, thumbnailUrl, title, user }) => {
   return (
     <Link to={`/${_id}`}>
       <div className="col-span-1 relative h-96 rounded-lg">
