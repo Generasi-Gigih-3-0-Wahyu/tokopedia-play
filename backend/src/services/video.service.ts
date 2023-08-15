@@ -12,7 +12,7 @@ export async function createVideo(input: {
   url: string;
   title: string;
   products?: string[];
-  userId: string
+  userId: string;
 }) {
   let products;
   if (input.products) {
@@ -25,7 +25,7 @@ export async function createVideo(input: {
       url: input.url,
       title: input.title,
       products: products,
-      user: input.userId
+      user: input.userId,
     });
     return video;
   } catch (err: any) {
@@ -57,7 +57,10 @@ export async function getVideos() {
 export async function getVideoById(id: string) {
   return await findVideoById(
     id,
-    { path: "comments products", select: { __v: 0 } },
+    {
+      path: "comments products user",
+      select: { __v: 0, password: 0, email: 0 },
+    },
     { __v: 0 }
   );
 }
@@ -67,5 +70,13 @@ export async function getProductsByVideoId(id: string) {
 }
 
 export async function getCommentsByVideoId(id: string) {
-  return await findVideoById(id, { path: "comments", select: { __v: 0 } }, {});
+  return await findVideoById(
+    id,
+    {
+      path: "comments",
+      populate: { path: "user", select: { name: 1 } },
+      select: { __v: 0, password: 0 },
+    },
+    {}
+  );
 }

@@ -1,6 +1,7 @@
+import { cn } from '@/lib/utils';
 import { FC, ReactElement } from 'react';
 
-type IconName = 'qr' | 'google' | 'loading' | 'discount';
+type IconName = 'qr' | 'google' | 'loading' | 'discount' | 'star';
 
 type IconObj = {
   [key in IconName]: ReactElement;
@@ -8,6 +9,7 @@ type IconObj = {
 
 interface IconProps {
   name: IconName;
+  className?: string;
 }
 
 const QRIcon = () => {
@@ -122,15 +124,29 @@ const DiscountIcon = () => {
   );
 };
 
+const StarIcon = () => {
+  return (
+    <svg
+      className="unf-icon"
+      viewBox="0 0 24 24"
+      fill="var(--YN300, #FFC400)"
+      style={{display: "inline-block", verticalAlign: "middle"}}
+    >
+      <path d="M21.57 9.14a2.37 2.37 0 0 0-1.93-1.63L15.9 7l-1.68-3.4a2.38 2.38 0 0 0-4.27 0L8.27 7l-3.75.54a2.39 2.39 0 0 0-1.32 4.04l2.71 2.64L5.27 18a2.38 2.38 0 0 0 2.35 2.79 2.42 2.42 0 0 0 1.11-.27l3.35-1.76 3.35 1.76a2.41 2.41 0 0 0 2.57-.23 2.369 2.369 0 0 0 .89-2.29l-.64-3.73L21 11.58a2.38 2.38 0 0 0 .57-2.44Z"></path>
+    </svg>
+  );
+}
+
 const icons: IconObj = {
   qr: <QRIcon />,
   google: <GoogleIcon />,
   loading: <LoadingIcon />,
   discount: <DiscountIcon />,
+  star: <StarIcon />,
 };
 
-const Icon: FC<IconProps> = ({ name }) => {
-  return <div>{icons[name]}</div>;
+const Icon: FC<IconProps> = ({ name, className }) => {
+  return <div className={cn(className)}>{icons[name]}</div>;
 };
 
 export default Icon;

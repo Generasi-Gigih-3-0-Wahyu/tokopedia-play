@@ -1,4 +1,4 @@
-import { VideoShort } from '@/@types';
+import { VideoShortProps } from '@/@types';
 import VideoCard from '@/components/VideoCard';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,7 +8,7 @@ import { ArrowLeft, SearchIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 function App() {
-  const [videos, setVideos] = useState<VideoShort[]>([]);
+  const [videos, setVideos] = useState<VideoShortProps[]>([]);
 
   useEffect(() => {
     let isMounted = true;
@@ -19,7 +19,6 @@ function App() {
         const resp = await axios.get('/videos', {
           signal: controller.signal,
         });
-        console.log(resp.data);
         isMounted && setVideos(resp.data.data);
       } catch (err: any) {
         console.log(err);
@@ -39,7 +38,7 @@ function App() {
       <header className="py-3 flex flex-col gap-y-6 sticky top-0">
         <div className="flex justify-between items-center">
           <div className="text-white flex items-center space-x-4">
-            <ArrowLeft className="w-6" />
+            <ArrowLeft className="w-6 h-6" />
             <span className="font-semibold">Play</span>
           </div>
           <div className="w-60">

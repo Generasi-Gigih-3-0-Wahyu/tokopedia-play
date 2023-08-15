@@ -1,4 +1,5 @@
-import { prop } from "@typegoose/typegoose";
+import { prop, Ref } from "@typegoose/typegoose";
+import { User } from "./user.model";
 
 export class Product {
   @prop({ required: true })
@@ -9,4 +10,7 @@ export class Product {
 
   @prop({ required: true })
   price: number;
+
+  @prop({ ref: () => User })
+  user: Ref<User>;
 }
