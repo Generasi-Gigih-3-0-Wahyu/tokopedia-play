@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import axios from '@/lib/axios';
 import { XIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import { useForm } from 'react-hook-form';
@@ -30,8 +30,14 @@ import {
 import ProductItem from '@/components/ProductItem';
 import useAxiosPrivate from '@/hooks/useAxiosPrivate';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import useAuth from '@/hooks/useAuth';
+import { Toaster } from '@/components/ui/toaster';
+import { toast } from '@/components/ui/use-toast';
+import { ToastAction } from '@/components/ui/toast';
 
 const VideoDetail = () => {
+  const { auth } = useAuth();
+  const navigate = useNavigate();
   const [video, setVideo] = useState<VideoDetailProps>();
   const [comments, setComments] = useState<Comment[]>([]);
   const { videoId } = useParams();
@@ -47,6 +53,22 @@ const VideoDetail = () => {
       setComments(resp.data.data);
     } catch (err: any) {
       console.log(err);
+    }
+  };
+
+  const onClick = () => {
+    console.log(auth);
+    if (auth.accessToken === "") {
+      toast({
+        variant: 'destructive',
+        title: 'You are not logged in',
+        description: 'Please login',
+        action: (
+          <ToastAction altText="Log In" onClick={() => navigate('/login')}>
+            Log In
+          </ToastAction>
+        ),
+      });
     }
   };
 
@@ -86,6 +108,7 @@ const VideoDetail = () => {
 
   return (
     <div className="min-h-screen">
+      <Toaster />
       <div className="h-screen relative">
         <div className="absolute h-screen z-10 w-full px-3">
           <header className="py-3 flex flex-col gap-y-6">
@@ -140,6 +163,7 @@ const VideoDetail = () => {
                       <FormItem>
                         <FormControl>
                           <Input
+                            onClick={onClick}
                             className="bg-transparent rounded-full text-white placeholder:text-slate-400 focus-visible:ring-green-600 focus-visible:ring-offset-0 focus-visible:border-none focus-visible:ring-1"
                             placeholder="Chat di sini...."
                             {...field}
