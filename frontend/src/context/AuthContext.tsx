@@ -1,19 +1,9 @@
-import { PropsWithChildren, createContext, useState } from 'react';
-
-type UserAuth = {
-  _id: string;
-  name: string;
-  email: string;
-};
-
-type Auth = {
-  user: UserAuth;
-  accessToken: string;
-};
+import { Auth } from '@/@types';
+import { Dispatch, PropsWithChildren, SetStateAction, createContext, useState } from 'react';
 
 type AuthContextType = {
   auth: Auth;
-  setAuth: (auth: Auth) => void;
+  setAuth: Dispatch<SetStateAction<Auth>>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);

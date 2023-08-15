@@ -7,11 +7,16 @@ import Login from './pages/Login.tsx';
 import { AuthProvider } from './context/AuthContext.tsx';
 import AuthLayout from './components/layout/AuthLayout.tsx';
 import Register from './pages/Register.tsx';
+import VideoDetail from './pages/VideoDetail.tsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+  },
+  {
+    path: '/:videoId',
+    element: <VideoDetail />
   },
   {
     path: '/',
